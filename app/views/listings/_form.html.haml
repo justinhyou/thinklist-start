@@ -1,0 +1,32 @@
+= form_for(@listing) do |f|
+  - if @listing.errors.any?
+    .alert.alert-danger
+      %p
+        = pluralize(@listing.errors.count, "error")
+
+        prohibited this listing from being saved:
+      
+      %ul
+        =@listing.errors.full_messages.each do |message|
+          %li= message
+
+  .form-group
+    = f.label :category
+    = f.collection_select :category_id, Category.all, :id, :name, {  |
+      include_blank: "Please select..." }, { class: 'form-control' } |
+  
+  .form-group
+    = f.label :title
+    = f.text_field :title, class: 'form-control'
+  
+  .form-group
+    = f.label :description
+    = f.text_area :description, class: 'form-control'
+  
+  .form-group
+    = f.label :price
+    .input-group
+      .input-group-addon $
+      = f.number_field :price, class: 'form-control', step: 'any', min: 0
+  = f.submit class: 'btn btn-primary'
+  = link_to 'Cancel', :back, class: 'btn btn-danger'

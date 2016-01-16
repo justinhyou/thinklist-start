@@ -1,0 +1,19 @@
+%p
+  %strong Title:
+  = @listing.title
+%p
+  %strong Category:
+  - if @listing.category
+    = link_to @listing.category.name, @listing.category
+  - else
+    none
+%p
+  %strong Description:
+  = @listing.description
+- if @listing.price
+  %p
+    %strong Price:
+    = number_to_currency(@listing.price)
+
+= link_to 'Edit', edit_listing_path(@listing), class: 'btn btn-default'
+= link_to 'Destroy', @listing, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'
